@@ -9,7 +9,7 @@ export default function TodoList() {
     function onCreate() {
         setShowModalBox(!showModalBox);
     }
-    const modalBox = showModalBox && <ModalBox />
+    const modalBox = showModalBox && <ModalBox onCreate = {onCreate} />
     return (
         <div className='todolist bg-sky-500/50'>
             <Header />

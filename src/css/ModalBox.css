@@ -1,17 +1,49 @@
 .modal-box {
-    width: 500px;
-    height: 500px;
+    width: 485px;
+    height: 350px;
+    position: absolute;
+    top: 30%;
+    transform: translate(50%);
+    left: 20%;
+    border-radius: 20px;
 }
 
 .btn-save {
     width: fit-content;
     border-radius: 10px;
     font-weight: 600;
+    text-transform: uppercase;
+    padding: 8px 18px;
 }
 
-#userEntryField {
+.icon-close {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    background-color: white;
+    padding: 5px;
+    font-size: 28px;
+    color: black;
+    border-radius: 2px;
+    font-weight: 600;
+}
+.icon-close:hover, 
+.btn-save:hover {
+    background-color: grey;
+    color: white;
+}
+
+.create-entry #userEntryField {
     border-radius: 10px;
     width: 60%;
     height: 40px;
     font-size: 20px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.smiley-icon {
+    font-size: 45px;
+    color: aquamarine;
+    margin-bottom: 20px;
 }
