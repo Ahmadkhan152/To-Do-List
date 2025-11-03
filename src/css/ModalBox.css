@@ -1,6 +1,6 @@
 .modal-box {
     width: 485px;
-    height: 350px;
+    height: 490px;
     position: absolute;
     top: 30%;
     transform: translate(50%);
@@ -40,10 +40,19 @@
     font-size: 20px;
     margin: 0 auto;
     padding: 15px;
+    margin-bottom: 15px;
+}
+
+.create-entry #userTextArea {
+    border-radius: 10px;
+    width: 60%;
+    font-size: 20px;
+    margin: 0 auto;
+    padding: 15px;
 }
 
 .smiley-icon {
-    font-size: 45px;
+    font-size: 60px;
     color: aquamarine;
     margin-bottom: 20px;
 }

@@ -2,33 +2,48 @@ import { useState } from "react";
 import { CgSmile , CgSmileMouthOpen , CgClose , CgSmileSad } from "react-icons/cg";
 import '../css/ModalBox.css';
 
-export default function ModalBox( {onCreate} ) {
-    const [userInput, setUserInput] = useState('');
-    const [changeIcon, setChangeIcon] = useState(false);
 
-    function handleOnChange(event) {
-        setUserInput(event.target.value);
+export default function ModalBox( {onCreate , addToDoItem , editItem, updateItem} ) {
+    
+    const [todoTitle, setTodoTitle] = useState(editItem?.title || '');
+    const [iconKey, setIconKey] = useState('smile');
+    const [todoDescription, setTodoDescription] = useState(editItem?.description || '');
+    
+    function handleOnChangeTitle(event) {
+        setTodoTitle(event.target.value);
     }
 
-    function onHoverIcon() {
-        setChangeIcon(!changeIcon);
+    function handleOnChangeDescription(event) {
+        setTodoDescription(event.target.value);
     }
-
+    
+    function onHoverIcon(iconName) {
+        setIconKey(iconName);
+    }
+    
     function handleOnSubmit(event) {
         event.preventDefault();
-        onCreate(false);
+        if (!editItem)
+            addToDoItem({title: todoTitle, description: todoDescription})
+        else
+            updateItem({id: editItem.id, title: todoTitle, description: todoDescription})
+        onCreate();
     }
-
-    let formIcon = changeIcon && <CgSmileMouthOpen className="smiley-icon" onMouseLeave = {() => onHoverIcon()} />
-    if (!formIcon)
-        formIcon = <CgSmile className="smiley-icon" onMouseEnter = {() => onHoverIcon()} />;
-
+    
+    const modalIcons = {
+        smile: <CgSmile className="smiley-icon" onMouseEnter={() => onHoverIcon('smileOpen')} />,
+        smileOpen: <CgSmileMouthOpen className="smiley-icon" onMouseLeave={() => onHoverIcon('smile')} />,
+        close: <CgClose className="icon-close" />,
+        sad: <CgSmileSad className="smiley-icon" />
+    }
+    const formIcon = modalIcons[iconKey];
     return (
         <div className="modal-box bg-cyan-700/80">
             <form className="create-entry h-full flex flex-col justify-center items-center" onSubmit={handleOnSubmit}>
-                <CgClose className="icon-close" onClick={() => onCreate(false)}  />
+                <CgClose className="icon-close" onMouseEnter={ () => onHoverIcon('sad') } onMouseLeave={ () => onHoverIcon('smile')} onClick={() => onCreate(false)}  />
                 { formIcon }
-                <input id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChange} value={userInput} name="entry"  />
+                <input id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChangeTitle} value={todoTitle} name="todo-name"  />
+                <textarea id="userTextArea" placeholder="Describle Your Todo..." type="text" onChange={handleOnChangeDescription} value={todoDescription} name="todo-description" rows={5} />
                 <button className="btn-save p-2 bg-white mt-6 mx-auto" type="submit">Create</button>
             </form>
         </div>
