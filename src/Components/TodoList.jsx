@@ -6,43 +6,58 @@ import { useState, useEffect } from 'react';
 import CreateListItems from './CreateListItems';
 
 export default function TodoList() {
-    const [showModalBox, setShowModalBox] = useState(false);
+    const [prev, setShowModalBox] = useState(false);
     const [editItem, setEditItem] = useState(null);
     const [todolist, setTodolist] = useState([]);
     const [id, setID] = useState(0);
 
+    const saveList = (list) => {
+        setTodolist(list);
+        localStorage.setItem('TodoList', JSON.stringify(list));
+    };
     useEffect(() => {
+        const allData = JSON.parse(localStorage.getItem('TodoList') || '[]');
+        const lastItem = Array.isArray(allData) ? allData[allData.length - 1] : null;
         const data = localStorage.getItem('TodoList');
-        if (data)
+        if (data) {
             setTodolist(JSON.parse(data));
+            if (lastItem)
+                setID(lastItem.id + 1);
+        }
     }, []);
 
-    
+
     const onUpdateItem = ( {id, title, description} ) => {
-        const updatedList = [...todolist.slice(0, id), { id, title, description }, ...todolist.slice(id + 1)];
-        setTodolist(updatedList);
-        localStorage.setItem('TodoList', JSON.stringify(updatedList));
+        const updatedList = todolist.map((item) => item.id === id ? {id, title, description} : item );
+        saveList(updatedList);
     }
 
     const onEditItem = ( todoItem ) => {
         setEditItem(todoItem);
-        onCreate();
+        onToggle();
+    }
+
+
+    const onDeleteItem = ( id ) => {
+        const updatedList = todolist.filter((item) => item.id !== id)
+        saveList(updatedList)
     }
 
     const addToDoItem = ({title, description}) => {
-        setTodolist([...todolist, {id , title , description}]);
-        localStorage.setItem('TodoList', JSON.stringify([...todolist, {id, title, description}]));
+        saveList([...todolist, {id, title, description}]);
         setID(id + 1);
     }
-    function onCreate() {
-        setShowModalBox(!showModalBox);
+    function onToggle() {
+        setShowModalBox(!prev);
+        if (editItem)
+            setEditItem(null);
     }
     return (
         <div className='todolist bg-sky-500/50'>
             <Header />
-            <CreateListItems onEditItem={onEditItem} todoList={todolist} />
-            {showModalBox && ( editItem === null ? <ModalBox onCreate={onCreate} addToDoItem={addToDoItem} /> : <ModalBox onCreate={onCreate} editItem={editItem} updateItem = {onUpdateItem} /> )}
-            <CgMathPlus onClick={onCreate} className='p-2 create-icon text-4xl absolute shadow-xl/40 hover:bg-blue-400' />
+            <CreateListItems onEditItem={onEditItem} todoList={todolist} onDeleteItem = {onDeleteItem} />
+            {prev && ( editItem === null ? <ModalBox onToggle={onToggle} addToDoItem={addToDoItem} /> : <ModalBox onToggle={onToggle} editItem={editItem} updateItem = {onUpdateItem} /> )}
+            <CgMathPlus onClick={onToggle} className='p-2 create-icon text-4xl absolute shadow-xl/40 hover:bg-sky-500/75' />
         </div>
     )
 }

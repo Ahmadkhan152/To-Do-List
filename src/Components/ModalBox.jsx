@@ -3,7 +3,7 @@ import { CgSmile , CgSmileMouthOpen , CgClose , CgSmileSad } from "react-icons/c
 import '../css/ModalBox.css';
 
 
-export default function ModalBox( {onCreate , addToDoItem , editItem, updateItem} ) {
+export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem} ) {
     
     const [todoTitle, setTodoTitle] = useState(editItem?.title || '');
     const [iconKey, setIconKey] = useState('smile');
@@ -27,7 +27,7 @@ export default function ModalBox( {onCreate , addToDoItem , editItem, updateItem
             addToDoItem({title: todoTitle, description: todoDescription})
         else
             updateItem({id: editItem.id, title: todoTitle, description: todoDescription})
-        onCreate();
+        onToggle();
     }
     
     const modalIcons = {
@@ -40,7 +40,7 @@ export default function ModalBox( {onCreate , addToDoItem , editItem, updateItem
     return (
         <div className="modal-box bg-cyan-700/80">
             <form className="create-entry h-full flex flex-col justify-center items-center" onSubmit={handleOnSubmit}>
-                <CgClose className="icon-close" onMouseEnter={ () => onHoverIcon('sad') } onMouseLeave={ () => onHoverIcon('smile')} onClick={() => onCreate(false)}  />
+                <CgClose className="icon-close" onMouseEnter={ () => onHoverIcon('sad') } onMouseLeave={ () => onHoverIcon('smile')} onClick={() => onToggle(false)}  />
                 { formIcon }
                 <input id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChangeTitle} value={todoTitle} name="todo-name"  />
                 <textarea id="userTextArea" placeholder="Describle Your Todo..." type="text" onChange={handleOnChangeDescription} value={todoDescription} name="todo-description" rows={5} />
