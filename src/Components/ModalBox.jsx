@@ -43,7 +43,7 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
                 <CgClose className="icon-close" onMouseEnter={ () => onHoverIcon('sad') } onMouseLeave={ () => onHoverIcon('smile')} onClick={() => onToggle(false)}  />
                 { formIcon }
                 <input id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChangeTitle} value={todoTitle} name="todo-name"  />
-                <textarea id="userTextArea" placeholder="Describle Your Todo..." type="text" onChange={handleOnChangeDescription} value={todoDescription} name="todo-description" rows={5} />
+                <textarea id="userTextArea" placeholder="Describle Your Todo..." type="text" onChange={handleOnChangeDescription} value={todoDescription} name="todo-description" rows={5} maxLength={40} />
                 <button className="btn-save p-2 bg-white mt-6 mx-auto" type="submit">Create</button>
             </form>
         </div>

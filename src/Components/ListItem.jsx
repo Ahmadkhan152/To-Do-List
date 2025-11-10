@@ -7,7 +7,7 @@ export default function ListItem( { todoItem, onEditItem, onDeleteItem } ) {
             <CgClose className="remove-item" onClick={() => onDeleteItem(todoItem.id)} />
             <CgPen className="edit-item" onClick={ () => onEditItem( todoItem ) } />
             <h3>{ title }</h3>
-            <p>{ description }</p>
+            { description && description.length > 10 ? <p className="hover:cursor-pointer" onClick={ () => onEditItem( todoItem, disableInputs ) }>{description.slice(0, 10) + '...'}</p> : <p>{description}</p> }
         </li>
     )
 }

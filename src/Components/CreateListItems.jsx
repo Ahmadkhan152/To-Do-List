@@ -6,5 +6,5 @@ export default function CreateListItems( { todoList, onEditItem , onDeleteItem }
         return <ListItem key={item.id} todoItem={item} onEditItem = {onEditItem} onDeleteItem={onDeleteItem} />
     } );
 
-    return <ul className="flex items-center mt-10">{renderedListItems}</ul>
+    return <ul className="flex items-center justify-center flex-wrap">{renderedListItems}</ul>
 }

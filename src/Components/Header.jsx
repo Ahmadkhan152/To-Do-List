@@ -1,6 +1,6 @@
 export default function Header() {
     return (
-        <header className="p-4 bg-sky-500/75 text-5xl text-center">
+        <header className="p-4 bg-sky-500/75 text-5xl text-center mb-12">
             <h1>Create Your ToDo List</h1>
         </header>
     )

@@ -32,9 +32,12 @@ export default function TodoList() {
         saveList(updatedList);
     }
 
-    const onEditItem = ( todoItem ) => {
+    const onEditItem = ( todoItem, disableInputs ) => {
         setEditItem(todoItem);
         onToggle();
+        if (disableInputs) {
+            
+        }
     }
 
 
@@ -55,9 +58,13 @@ export default function TodoList() {
     return (
         <div className='todolist bg-sky-500/50'>
             <Header />
-            <CreateListItems onEditItem={onEditItem} todoList={todolist} onDeleteItem = {onDeleteItem} />
-            {prev && ( editItem === null ? <ModalBox onToggle={onToggle} addToDoItem={addToDoItem} /> : <ModalBox onToggle={onToggle} editItem={editItem} updateItem = {onUpdateItem} /> )}
-            <CgMathPlus onClick={onToggle} className='p-2 create-icon text-4xl absolute shadow-xl/40 hover:bg-sky-500/75' />
+            <div className='main-container'>
+                <div className='todolist-container bg-sky-500/75'>
+                    <CreateListItems onEditItem={onEditItem} todoList={todolist} onDeleteItem = {onDeleteItem} />
+                </div>
+                {prev && ( editItem === null ? <ModalBox onToggle={onToggle} addToDoItem={addToDoItem} /> : <ModalBox onToggle={onToggle} editItem={editItem} updateItem = {onUpdateItem} /> )}
+                <CgMathPlus style={prev ? {transform: 'rotate(220deg)'} : {}} onClick={onToggle} className='p-2 create-icon text-4xl absolute shadow-xl/40 hover:bg-sky-500/75' />
+            </div>
         </div>
     )
 }
