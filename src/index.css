@@ -5,3 +5,7 @@
 @theme {
     --color-primary: #3490dc; /* Defines a custom primary color variable */
 }
+
+body {
+    font-family: "Baloo 2", sans-serif;
+}

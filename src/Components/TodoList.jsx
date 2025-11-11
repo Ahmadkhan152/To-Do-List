@@ -10,6 +10,7 @@ export default function TodoList() {
     const [editItem, setEditItem] = useState(null);
     const [todolist, setTodolist] = useState([]);
     const [id, setID] = useState(0);
+    const [showItemDescription, setShowItemDescription] = useState(false);
 
     const saveList = (list) => {
         setTodolist(list);
@@ -27,17 +28,19 @@ export default function TodoList() {
     }, []);
 
 
+
     const onUpdateItem = ( {id, title, description} ) => {
         const updatedList = todolist.map((item) => item.id === id ? {id, title, description} : item );
         saveList(updatedList);
     }
 
-    const onEditItem = ( todoItem, disableInputs ) => {
+    const onEditItem = ( todoItem, showDescriptionItem ) => {
         setEditItem(todoItem);
+        if (showDescriptionItem)
+            setShowItemDescription(true);
+        else
+            setShowItemDescription(false);
         onToggle();
-        if (disableInputs) {
-            
-        }
     }
 
 
@@ -54,15 +57,17 @@ export default function TodoList() {
         setShowModalBox(!prev);
         if (editItem)
             setEditItem(null);
+        if (showItemDescription)
+            setShowItemDescription(false)
     }
     return (
-        <div className='todolist bg-sky-500/50'>
+        <div className='todolist'>
             <Header />
             <div className='main-container'>
                 <div className='todolist-container bg-sky-500/75'>
                     <CreateListItems onEditItem={onEditItem} todoList={todolist} onDeleteItem = {onDeleteItem} />
                 </div>
-                {prev && ( editItem === null ? <ModalBox onToggle={onToggle} addToDoItem={addToDoItem} /> : <ModalBox onToggle={onToggle} editItem={editItem} updateItem = {onUpdateItem} /> )}
+                {prev && <ModalBox onToggle={onToggle} addToDoItem={addToDoItem} editItem={editItem} updateItem = {onUpdateItem} showDescriptionItem={showItemDescription} /> }
                 <CgMathPlus style={prev ? {transform: 'rotate(220deg)'} : {}} onClick={onToggle} className='p-2 create-icon text-4xl absolute shadow-xl/40 hover:bg-sky-500/75' />
             </div>
         </div>

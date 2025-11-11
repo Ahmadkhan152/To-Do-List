@@ -1,9 +1,11 @@
+@import '../index.css';
 
 .todolist {
     position: relative;
     min-height: 100vh;
     height: 100%;
     width: 100%;
+    background-color: #2B2B2B;
 }
 
 .main-container {
@@ -15,6 +17,7 @@
 .todolist-container {
     border-radius: 50px;
     padding: 40px;
+    background-color: #454545;
 }
 
 .create-icon {

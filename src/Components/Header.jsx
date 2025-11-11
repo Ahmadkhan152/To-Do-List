@@ -1,7 +1,7 @@
 export default function Header() {
     return (
-        <header className="p-4 bg-sky-500/75 text-5xl text-center mb-12">
-            <h1>Create Your ToDo List</h1>
+        <header className="p-4 text-5xl text-center mb-12 shadow-lg" style={{backgroundColor: '#0076BE'}}>
+            <h1 className="text-white">Create Your ToDo List</h1>
         </header>
     )
 }
