@@ -6,6 +6,7 @@
     transform: translate(50%);
     left: 20%;
     border-radius: 20px;
+    background-color: #454545;
 }
 
 .btn-save {
@@ -53,6 +54,6 @@
 
 .smiley-icon {
     font-size: 60px;
-    color: aquamarine;
+    color: white;
     margin-bottom: 20px;
 }

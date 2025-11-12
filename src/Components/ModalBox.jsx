@@ -38,7 +38,7 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
     }
     const formIcon = modalIcons[iconKey];
     return (
-        <div className="modal-box bg-cyan-700/80">
+        <div className="modal-box">
             <form className="create-entry h-full flex flex-col justify-center items-center" onSubmit={handleOnSubmit}>
                 <CgClose className="icon-close" onMouseEnter={ () => onHoverIcon('sad') } onMouseLeave={ () => onHoverIcon('smile')} onClick={() => onToggle(false)}  />
                 { formIcon }
