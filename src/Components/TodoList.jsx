@@ -86,7 +86,7 @@ export default function TodoList() {
                     <CreateListItems itemCompleted = {itemCompleted} onEditItem={onEditItem} todoList={todolist} onDeleteItem = {onDeleteItem} />
                 </div>
                 {prev && <ModalBox onToggle={onToggle} addToDoItem={addToDoItem} editItem={editItem} updateItem = {onUpdateItem} showDescriptionItem={showItemDescription} /> }
-                <CgMathPlus style={prev ? {transform: 'rotate(220deg)'} : {}} onClick={onToggle} className='p-2 create-icon text-4xl absolute shadow-xl/40 hover:bg-sky-500/75' />
+                <CgMathPlus style={prev ? {transform: 'rotate(220deg)'} : {}} onClick={onToggle} className='p-2 create-icon text-4xl absolute shadow-xl/40' />
             </div>
         </div>
     )
