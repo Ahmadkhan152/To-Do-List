@@ -41,7 +41,17 @@
     font-size: 20px;
     margin: 0 auto;
     padding: 15px;
-    margin-bottom: 15px;
+}
+
+.error-text {
+    width: 60%;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.create-entry #userEntryField:focus-visible, 
+.create-entry #userTextArea:focus-visible {
+    outline: none !important;
 }
 
 .create-entry #userTextArea {
@@ -50,6 +60,7 @@
     font-size: 20px;
     margin: 0 auto;
     padding: 15px;
+    margin-top: 15px;
 }
 
 .smiley-icon {

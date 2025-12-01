@@ -4,16 +4,19 @@ import { CgMathPlus } from "react-icons/cg";
 import ModalBox from './ModalBox';
 import { useState, useEffect } from 'react';
 import CreateListItems from './CreateListItems';
+import FilterItems from './FilterItems';
 
 export default function TodoList() {
     const [prev, setShowModalBox] = useState(false);
     const [editItem, setEditItem] = useState(null);
     const [todolist, setTodolist] = useState([]);
     const [id, setID] = useState(0);
+    const [uiToDoList, setUiToDoList] = useState([]);
     const [showItemDescription, setShowItemDescription] = useState(false);
 
     const saveList = (list) => {
         setTodolist(list);
+        setUiToDoList(list);
         localStorage.setItem('TodoList', JSON.stringify(list));
     };
     useEffect(() => {
@@ -22,6 +25,7 @@ export default function TodoList() {
         const data = localStorage.getItem('TodoList');
         if (data) {
             setTodolist(JSON.parse(data));
+            setUiToDoList(JSON.parse(data));
             if (lastItem)
                 setID(lastItem.id + 1);
         }
@@ -30,13 +34,27 @@ export default function TodoList() {
     const itemCompleted = (itemID) => {
         const allData = JSON.parse(localStorage.getItem('TodoList') || '[]');
         let data = allData.map((item) => {
-            console.log(item);
             if (item.id === itemID)
                 item.completed = !item.completed;
             return item;
         })
         setTodolist(data);
+        setUiToDoList(data);
         localStorage.setItem('TodoList', JSON.stringify(data));
+    }
+
+    const getFilterValues = (filterKey) => {
+        if (filterKey === 'all') {
+            setUiToDoList([...todolist]);
+        }
+        else if (filterKey === 'completed') {
+            const filteredList = todolist.filter((item) => item.completed)
+            setUiToDoList(filteredList);
+        }
+        else if (filterKey === 'pending') {
+            const filteredList = todolist.filter((item) => !item.completed)
+            setUiToDoList(filteredList);
+        }
     }
 
 
@@ -78,12 +96,17 @@ export default function TodoList() {
             <Header />
             <div className='main-container'>
                 <div className='todolist-container'>
-                    <div className='todolist-header flex flex-wrap items-center mb-6'>
-                        <h3 className='text-white tracking-[.1em]'>Items: {todolist.length}</h3>
-                        <h3 className='text-white tracking-[.1em] ml-3'>Todo Items: {todolist.filter(item => item.completed !== true).length}</h3>
-                        <h3 className='text-white tracking-[.1em] ml-3'>Completed: {todolist.filter(item => item.completed === true).length}</h3>
+                    <div className='todolist-header mb-6 flex items-center justify-between'>
+                        <div className='todolist-header flex flex-wrap items-center'>
+                            <h3 className='text-white tracking-[.1em]'>Items: {uiToDoList.length}</h3>
+                            <h3 className='text-white tracking-[.1em] ml-3'>Todo Items: {uiToDoList.filter(item => item.completed !== true).length}</h3>
+                            <h3 className='text-white tracking-[.1em] ml-3'>Completed: {uiToDoList.filter(item => item.completed === true).length}</h3>
+                        </div>
+                        <div className='filter-lists'>
+                            <FilterItems getFilterValues={getFilterValues} />
+                        </div>
                     </div>
-                    <CreateListItems itemCompleted = {itemCompleted} onEditItem={onEditItem} todoList={todolist} onDeleteItem = {onDeleteItem} />
+                    <CreateListItems itemCompleted = {itemCompleted} onEditItem={onEditItem} todoList={uiToDoList} onDeleteItem = {onDeleteItem} />
                 </div>
                 {prev && <ModalBox onToggle={onToggle} addToDoItem={addToDoItem} editItem={editItem} updateItem = {onUpdateItem} showDescriptionItem={showItemDescription} /> }
                 <CgMathPlus style={prev ? {transform: 'rotate(220deg)'} : {}} onClick={onToggle} className='p-2 create-icon text-4xl absolute shadow-xl/40' />

@@ -7,6 +7,7 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
     
     const [todoTitle, setTodoTitle] = useState(editItem?.title || '');
     const [iconKey, setIconKey] = useState('smile');
+    const [showError, setShowError] = useState(false);
     const [todoDescription, setTodoDescription] = useState(editItem?.description || '');
     
     function handleOnChangeTitle(event) {
@@ -23,11 +24,16 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
     
     function handleOnSubmit(event) {
         event.preventDefault();
-        if (!editItem)
-            addToDoItem({title: todoTitle, description: todoDescription})
-        else
-            updateItem({id: editItem.id, title: todoTitle, description: todoDescription})
-        onToggle();
+        if (!todoTitle) {
+            setIconKey('sad');
+            setShowError(true);
+        } else {
+            if (!editItem)
+                addToDoItem({title: todoTitle, description: todoDescription})
+            else
+                updateItem({id: editItem.id, title: todoTitle, description: todoDescription})
+            onToggle();
+        }
     }
     
     const modalIcons = {
@@ -42,7 +48,8 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
             <form className="create-entry h-full flex flex-col justify-center items-center" onSubmit={handleOnSubmit}>
                 <CgClose className="icon-close" onMouseEnter={ () => onHoverIcon('sad') } onMouseLeave={ () => onHoverIcon('smile')} onClick={() => onToggle(false)}  />
                 { formIcon }
-                <input id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChangeTitle} value={todoTitle} name="todo-name" readOnly={showDescriptionItem} />
+                <input className={ showError && 'mb-0' } id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChangeTitle} value={todoTitle} name="todo-name" readOnly={showDescriptionItem} maxLength={20} />
+                { showError && <p className="text-red-500 error-text">Title cannot be empty!</p> }
                 <textarea id="userTextArea" placeholder="Describle Your Todo..." type="text" onChange={handleOnChangeDescription} value={todoDescription} name="todo-description" rows={5} maxLength={40} readOnly={showDescriptionItem}/>
                 {!showDescriptionItem && <button className="btn-save p-2 bg-white mt-6 mx-auto" type="submit">Create</button> }
             </form>
