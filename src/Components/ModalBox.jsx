@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CgSmile , CgSmileMouthOpen , CgClose , CgSmileSad } from "react-icons/cg";
 import '../css/ModalBox.css';
+import { cn } from "../lib/utils";
 
 
 export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem, showDescriptionItem} ) {
@@ -8,18 +9,29 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
     const [todoTitle, setTodoTitle] = useState(editItem?.title || '');
     const [iconKey, setIconKey] = useState('smile');
     const [showError, setShowError] = useState(false);
-    const [todoDescription, setTodoDescription] = useState(editItem?.description || '');
-    
-    function handleOnChangeTitle(event) {
-        setTodoTitle(event.target.value);
+    const [todoDescription, setTodoDescription] = useState(editItem?.description || ''); 
+    const getCurrentDateTime = () => {
+        const date = new Date();
+        const offset = date.getTimezoneOffset();
+        const localDate = new Date(date.getTime() - offset * 60 * 1000);
+        return localDate.toISOString().slice(0,16); 
     }
+    const [todoDateTime, setTodoDateTime] = useState(editItem?.dateTime || getCurrentDateTime());
 
     function handleOnChangeDescription(event) {
         setTodoDescription(event.target.value);
     }
+
+    function handleOnChangeTitle(event) {
+        setTodoTitle(event.target.value);
+    }
     
     function onHoverIcon(iconName) {
         setIconKey(iconName);
+    }
+
+    function onChangeDateTime(event) {
+        setTodoDateTime(event.target.value);
     }
     
     function handleOnSubmit(event) {
@@ -28,9 +40,10 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
             setIconKey('sad');
             setShowError(true);
         } else {
-            if (!editItem)
-                addToDoItem({title: todoTitle, description: todoDescription})
-            else
+            console.log(todoDateTime);
+            if (!editItem) {
+                addToDoItem({title: todoTitle, description: todoDescription, time: todoDateTime})
+            } else
                 updateItem({id: editItem.id, title: todoTitle, description: todoDescription})
             onToggle();
         }
@@ -48,7 +61,8 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
             <form className="create-entry h-full flex flex-col justify-center items-center" onSubmit={handleOnSubmit}>
                 <CgClose className="icon-close" onMouseEnter={ () => onHoverIcon('sad') } onMouseLeave={ () => onHoverIcon('smile')} onClick={() => onToggle(false)}  />
                 { formIcon }
-                <input className={ showError && 'mb-0' } id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChangeTitle} value={todoTitle} name="todo-name" readOnly={showDescriptionItem} maxLength={20} />
+                <input type="datetime-local" className="datetime-input" value={todoDateTime} onChange={onChangeDateTime} />
+                <input className={ cn(showError && 'mb-0') } id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChangeTitle} value={todoTitle} name="todo-name" readOnly={showDescriptionItem} maxLength={20} />
                 { showError && <p className="text-red-500 error-text">Title cannot be empty!</p> }
                 <textarea id="userTextArea" placeholder="Describle Your Todo..." type="text" onChange={handleOnChangeDescription} value={todoDescription} name="todo-description" rows={5} maxLength={40} readOnly={showDescriptionItem}/>
                 {!showDescriptionItem && <button className="btn-save p-2 bg-white mt-6 mx-auto" type="submit">Create</button> }

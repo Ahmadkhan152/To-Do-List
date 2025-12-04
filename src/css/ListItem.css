@@ -45,3 +45,10 @@
     font-size: 18px;
     color: #454545;
 }
+
+.date-time {
+    font-size: 13px;
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+}

@@ -1,12 +1,12 @@
 .modal-box {
-    width: 485px;
-    height: 490px;
+    width: 530px;
+    height: 630px;
     position: absolute;
-    top: 30%;
+    top: 20%;
     transform: translate(50%);
     left: 20%;
     border-radius: 20px;
-    background-color: #454545;
+    background-color: #514f4f;
 }
 
 .btn-save {
@@ -15,6 +15,18 @@
     font-weight: 600;
     text-transform: uppercase;
     padding: 8px 18px;
+}
+
+.datetime-input {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    border-radius: 3px;
+    padding: 4px;
+    font-size: 13px;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
 }
 
 .icon-close {

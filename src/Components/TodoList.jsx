@@ -79,8 +79,8 @@ export default function TodoList() {
         saveList(updatedList);
     }
 
-    const addToDoItem = ({title, description}) => {
-        saveList([...todolist, {id, title, description, completed: false}]);
+    const addToDoItem = ({title, description, time}) => {
+        saveList([...todolist, {id, title, description, time, completed: false}]);
         setID(id + 1);
     }
     function onToggle() {
