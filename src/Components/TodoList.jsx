@@ -19,6 +19,7 @@ export default function TodoList() {
         setUiToDoList(list);
         localStorage.setItem('TodoList', JSON.stringify(list));
     };
+
     useEffect(() => {
         const allData = JSON.parse(localStorage.getItem('TodoList') || '[]');
         const lastItem = Array.isArray(allData) ? allData[allData.length - 1] : null;
@@ -59,8 +60,8 @@ export default function TodoList() {
 
 
 
-    const onUpdateItem = ( {id, title, description} ) => {
-        const updatedList = todolist.map((item) => item.id === id ? {id, title, description} : item );
+    const onUpdateItem = ( {id, title, description, time, dueTime} ) => {
+        const updatedList = todolist.map((item) => item.id === id ? {id, title, description, time, dueTime} : item );
         saveList(updatedList);
     }
 
@@ -79,8 +80,8 @@ export default function TodoList() {
         saveList(updatedList);
     }
 
-    const addToDoItem = ({title, description, time}) => {
-        saveList([...todolist, {id, title, description, time, completed: false}]);
+    const addToDoItem = ({title, description, time, dueTime}) => {
+        saveList([...todolist, {id, title, description, time, dueTime,  completed: false}]);
         setID(id + 1);
     }
     function onToggle() {

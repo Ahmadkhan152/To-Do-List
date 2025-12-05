@@ -11,6 +11,8 @@ export default function ListItem( { todoItem, onEditItem, onDeleteItem, itemComp
     }
     let hours = todoItem.time && todoItem.time.slice(11,13);
     let updatedTime = null;
+    let dueHours = todoItem.dueTime && todoItem.dueTime.slice(11,13);
+    let dueUpdatedTime = null;
     if (todoItem.time) {
         if (parseInt(hours) > 12) {
             hours = parseInt(hours);
@@ -21,14 +23,35 @@ export default function ListItem( { todoItem, onEditItem, onDeleteItem, itemComp
             updatedTime = todoItem.time.slice(0,10) + " " + hours + " " + todoItem.time.slice(13) + " AM";
         }
     }
+
+    if (todoItem.dueTime) {
+        if (parseInt(dueHours) > 12) {
+            dueHours = parseInt(dueHours);
+            dueHours = (dueHours % 12);
+            dueHours = dueHours.toString();
+            dueUpdatedTime = todoItem.dueTime.slice(0,10) + " " + dueHours + " " + todoItem.dueTime.slice(13) + " PM";
+        } else {
+            dueUpdatedTime = todoItem.dueTime.slice(0,10) + " " + dueHours + " " + todoItem.dueTime.slice(13) + " AM";
+        }
+    }
+
+    function dueDateCal() {
+        const today = new Date();
+        const offset = today.getTimezoneOffset() * 60 * 1000;
+        const localDate = new Date(today.getTime() - offset );
+        return localDate.toISOString().slice(0,16); 
+    }
+
     return (
-        <li className={cn("card h-full flex flex-col justify-center items-center relative", taskCompleted && "completed")}>
+        <li className={cn("card h-full flex flex-col justify-center items-center relative", taskCompleted && "completed", dueDateCal() >= todoItem.dueTime && "due-date-card")}>
             <input onChange={ handleOnChange } type="checkbox" name="complete" className="complete-checkbox" checked={taskCompleted} />
+            {console.log(todoItem.dueTime)}
+            {/* { dueUpdatedTime && <p className="date-time due-time">{ dueUpdatedTime }</p> } */}
             <CgClose className="remove-item" onClick={() => onDeleteItem(todoItem.id)} />
             {(!taskCompleted && <CgPen className="edit-item" onClick={ () => onEditItem( todoItem ) } /> )}
             <h3>{ title }</h3>
             { description && description.length > 10 ? <p className="hover:cursor-pointer" onClick={ () => onEditItem( todoItem, true ) }>{description.slice(0, 10) + '...'}</p> : <p>{description}</p> }
-            { updatedTime && <p className="date-time">{ updatedTime }</p> }
+            { dueUpdatedTime && <p className="date-time">{ dueUpdatedTime }</p> }
         </li>
     )
 }

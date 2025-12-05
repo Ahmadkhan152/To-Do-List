@@ -29,6 +29,10 @@
     border: 1px solid white;
 }
 
+.due-input {
+    left: 215px;
+}
+
 .icon-close {
     position: absolute;
     right: 30px;

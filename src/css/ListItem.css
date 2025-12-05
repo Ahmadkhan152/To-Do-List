@@ -1,7 +1,7 @@
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    min-width: 180px;
-    min-height: 180px;
+    min-width: 240px;
+    min-height: 240px;
     margin: 10px;
     background-color: white;
     border-radius: 10px;
@@ -51,4 +51,18 @@
     position: absolute;
     bottom: 10px;
     left: 12px;
+}
+
+.due-time {
+    top: 10px;
+    left: 38px;
+    bottom: unset;
+}
+
+.due-date-card {
+    background-color: #e18a8a;
+}
+
+.due-date-card h3, .date-time-card p {
+    /* color: white; */
 }
