@@ -66,3 +66,15 @@
 .due-date-card h3, .date-time-card p {
     /* color: white; */
 }
+
+.schedule-card {
+    user-select: none;
+}
+
+.schedule-card::before {
+    position: absolute;
+    content: 'Coming Soon!';
+    filter: blur(0);
+    font-size: 20px;
+    font-weight: 600;
+}

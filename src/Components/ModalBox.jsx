@@ -45,7 +45,6 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
             setIconKey('sad');
             setShowError(true);
         } else {
-            console.log(dueTodotime);
             if (!editItem) {
                 addToDoItem({title: todoTitle, description: todoDescription, time: todoDateTime, dueTime: dueTodotime})
             } else
@@ -70,7 +69,7 @@ export default function ModalBox( {onToggle , addToDoItem , editItem, updateItem
                 <input type="datetime-local" className="datetime-input due-input" value={dueTodotime} onChange={onDueToodo} readOnly={showDescriptionItem} />
                 <input className={ cn(showError && 'mb-0') } id="userEntryField" placeholder="Wanna Create Your Todo...!" type="text" onChange={handleOnChangeTitle} value={todoTitle} name="todo-name" readOnly={showDescriptionItem} maxLength={20} />
                 { showError && <p className="text-red-500 error-text">Title cannot be empty!</p> }
-                <textarea id="userTextArea" placeholder="Describle Your Todo..." type="text" onChange={handleOnChangeDescription} value={todoDescription} name="todo-description" rows={5} maxLength={40} readOnly={showDescriptionItem}/>
+                <textarea id="userTextArea" placeholder="Describe Your Todo..." type="text" onChange={handleOnChangeDescription} value={todoDescription} name="todo-description" rows={5} maxLength={40} readOnly={showDescriptionItem}/>
                 {!showDescriptionItem && <button className="btn-save p-2 bg-white mt-6 mx-auto" type="submit">Create</button> }
             </form>
         </div>
