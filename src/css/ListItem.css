@@ -8,6 +8,25 @@
     padding: 20px;
 }
 
+.card::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 35px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.card.medium::after {
+    background-color: yellow;
+}
+
+.card.high::after {
+    background-color: red;
+}
+
 .card h3 {
     text-align: center;
     font-size: 18px;

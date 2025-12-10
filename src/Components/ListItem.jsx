@@ -39,12 +39,11 @@ export default function ListItem( { todoItem, onEditItem, onDeleteItem, itemComp
         const today = new Date();
         const offset = today.getTimezoneOffset() * 60 * 1000;
         const localDate = new Date(today.getTime() - offset );
-        {console.log('TIme Checking: ', todoItem.time, localDate.toISOString().slice(0,16))}
         return localDate.toISOString().slice(0,16); 
     }
 
     return (
-        <li className={cn("card h-full flex flex-col justify-center items-center relative", taskCompleted && "completed", dueDateCal() >= todoItem.dueTime && "due-date-card", dueDateCal() < todoItem.time && "completed schedule-card flex items-center content-center")}>
+        <li className={cn("card h-full flex flex-col justify-center items-center relative", taskCompleted && "completed", !taskCompleted && dueDateCal() >= todoItem.dueTime && "due-date-card", dueDateCal() < todoItem.time && "completed schedule-card flex items-center content-center", todoItem.priority)}>
             <input onChange={ handleOnChange } type="checkbox" name="complete" className="complete-checkbox" checked={taskCompleted} disabled={dueDateCal() < todoItem.time ? true : false} />
             <CgClose className="remove-item" onClick={() => onDeleteItem(todoItem.id)} />
             {(!taskCompleted && <CgPen className="edit-item" onClick={ () => onEditItem( todoItem ) } /> )}

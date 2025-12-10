@@ -1,0 +1,27 @@
+.btn-radio {
+    position: absolute;
+    opacity: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.radio-container {
+    cursor: pointer;
+}
+
+label {
+    color: white;
+}
+
+.radioChecked {
+    width: 14px;
+    height: 14px;
+    border: 1px solid white;
+    background-color: transparent;
+    margin-right: 8px;
+}
+
+
+.btn-radio:checked +.radioChecked {
+    background-color: #76D0EA;
+}

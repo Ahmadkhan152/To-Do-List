@@ -60,8 +60,8 @@ export default function TodoList() {
 
 
 
-    const onUpdateItem = ( {id, title, description, time, dueTime} ) => {
-        const updatedList = todolist.map((item) => item.id === id ? {id, title, description, time, dueTime} : item );
+    const onUpdateItem = ( {id, title, description, priority, time, dueTime} ) => {
+        const updatedList = todolist.map((item) => item.id === id ? {id, title, description, priority, time, dueTime} : item );
         saveList(updatedList);
     }
 
@@ -80,8 +80,8 @@ export default function TodoList() {
         saveList(updatedList);
     }
 
-    const addToDoItem = ({title, description, time, dueTime}) => {
-        saveList([...todolist, {id, title, description, time, dueTime,  completed: false}]);
+    const addToDoItem = ({title, description, priority, time, dueTime}) => {
+        saveList([...todolist, {id, title, description, priority,  time, dueTime,  completed: false}]);
         setID(id + 1);
     }
     function onToggle() {

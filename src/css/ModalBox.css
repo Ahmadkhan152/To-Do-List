@@ -52,7 +52,7 @@
 
 .create-entry #userEntryField {
     border-radius: 10px;
-    width: 60%;
+    width: 80%;
     height: 40px;
     font-size: 20px;
     margin: 0 auto;
@@ -60,7 +60,7 @@
 }
 
 .error-text {
-    width: 60%;
+    width: 80%;
     margin-top: 5px;
     font-size: 14px;
 }
@@ -72,7 +72,7 @@
 
 .create-entry #userTextArea {
     border-radius: 10px;
-    width: 60%;
+    width: 80%;
     font-size: 20px;
     margin: 0 auto;
     padding: 15px;
@@ -83,4 +83,8 @@
     font-size: 60px;
     color: white;
     margin-bottom: 20px;
+}
+
+.priority-container {
+    width: 80%;
 }
