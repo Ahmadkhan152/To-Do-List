@@ -22,15 +22,15 @@
 }
 
 .create-icon {
-    bottom: 30px;
-    right: 40px;
+    /* bottom: 30px; */
+    /* right: 40px; */
     background-color: white;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     transition: transform 0.2s ease-in-out;
     font-weight: 700;
 }
 
 .create-icon:hover {
     color: white;
-    background-color: #454545;
+    background-color: #e18a8a;
 }

@@ -103,14 +103,14 @@ export default function TodoList() {
                             <h3 className='text-white tracking-[.1em] ml-3'>Todo Items: {uiToDoList.filter(item => item.completed !== true).length}</h3>
                             <h3 className='text-white tracking-[.1em] ml-3'>Completed: {uiToDoList.filter(item => item.completed === true).length}</h3>
                         </div>
-                        <div className='filter-lists'>
+                        <div className='filter-lists flex items-center'>
                             <FilterItems getFilterValues={getFilterValues} />
+                            <CgMathPlus style={prev ? {transform: 'rotate(220deg)'} : {}} onClick={onToggle} className='ml-5 p-2 create-icon text-4xl shadow-xl/40' />
                         </div>
                     </div>
                     <CreateListItems itemCompleted = {itemCompleted} onEditItem={onEditItem} todoList={uiToDoList} onDeleteItem = {onDeleteItem} />
                 </div>
                 {prev && <ModalBox onToggle={onToggle} addToDoItem={addToDoItem} editItem={editItem} updateItem = {onUpdateItem} showDescriptionItem={showItemDescription} /> }
-                <CgMathPlus style={prev ? {transform: 'rotate(220deg)'} : {}} onClick={onToggle} className='p-2 create-icon text-4xl absolute shadow-xl/40' />
             </div>
         </div>
     )
